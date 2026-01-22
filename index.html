@@ -2,26 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Zeklo AI</title>
+  <title>ZEKLO AI</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <!-- AUTH -->
 <div id="auth" class="auth">
-  <h2>Zeklo</h2>
+  <h1 class="logo">ZEKLO</h1>
+  <p class="tagline">Think. Create. Evolve.</p>
+
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
+
   <button onclick="signup()">Sign up</button>
   <button onclick="login()">Login</button>
+
   <p id="authMsg"></p>
 </div>
 
 <!-- APP -->
 <div id="app" class="app hidden">
   <aside class="sidebar">
-    <h2>Zeklo</h2>
-    <button onclick="newChat()">+ New Chat</button>
+    <h1 class="logo small">ZEKLO</h1>
+    <button class="new-chat" onclick="newChat()">＋ New Chat</button>
     <ul id="history"></ul>
   </aside>
 
