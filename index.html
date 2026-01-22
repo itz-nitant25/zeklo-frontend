@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Zeklo AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="auth" class="auth">
+  <h2>Zeklo</h2>
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="signup()">Sign up</button>
+  <button onclick="login()">Login</button>
+  <p id="authMsg"></p>
+</div>
+
+<!-- APP -->
+<div id="app" class="app hidden">
+  <aside class="sidebar">
+    <h2>Zeklo</h2>
+    <button onclick="newChat()">+ New Chat</button>
+    <ul id="history"></ul>
+  </aside>
+
+  <main class="chat">
+    <div id="messages"></div>
+
+    <div class="input-bar">
+      <input id="input" placeholder="Ask Zeklo…" />
+      <button onclick="send()">➤</button>
+    </div>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
