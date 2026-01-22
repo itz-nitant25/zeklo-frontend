@@ -1,63 +1,36 @@
-const API = "https://zeklo-backend.onrender.com"; // change later
+let guestId = localStorage.getItem("guest_id");
 
-let userId = null;
-
-function signup() {
-  fetch(`${API}/auth/signup?email=${email.value}&password=${password.value}`, {
-    method: "POST"
-  })
-  .then(r => r.json())
-  .then(() => authMsg.innerText = "Account created. Login now.");
+if (!guestId) {
+  guestId = crypto.randomUUID();
+  localStorage.setItem("guest_id", guestId);
 }
 
-function login() {
-  fetch(`${API}/auth/login?email=${email.value}&password=${password.value}`, {
-    method: "POST"
-  })
-  .then(r => r.json())
-  .then(d => {
-    userId = d.user_id;
-    auth.classList.add("hidden");
-    app.classList.remove("hidden");
-  });
-}
+const API = "https://YOUR-BACKEND-URL/chat";
 
-function send() {
-  const text = input.value;
-  if (!text) return;
+async function send() {
+  const input = document.getElementById("input");
+  const msg = input.value.trim();
+  if (!msg) return;
 
-  addMsg("You", text, "user");
+  addMessage(msg, "user");
   input.value = "";
 
-  fetch(`${API}/v1/chat?message=${encodeURIComponent(text)}`, {
+  const res = await fetch(API, {
     method: "POST",
-    headers: { "x-api-key": "YOUR_ZEK_API_KEY" }
-  })
-  .then(r => r.json())
-  .then(d => streamAI(d.reply));
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message: msg,
+      guest_id: guestId
+    })
+  });
+
+  const data = await res.json();
+  addMessage(data.reply, "ai");
 }
 
-function addMsg(sender, text, cls) {
+function addMessage(text, type) {
   const div = document.createElement("div");
-  div.className = `msg ${cls}`;
-  div.innerText = `${sender}: ${text}`;
-  messages.appendChild(div);
-  messages.scrollTop = messages.scrollHeight;
-}
-
-function streamAI(text) {
-  let i = 0;
-  const div = document.createElement("div");
-  div.className = "msg ai";
-  messages.appendChild(div);
-
-  const interval = setInterval(() => {
-    div.innerText = "Zeklo: " + text.slice(0, i++);
-    messages.scrollTop = messages.scrollHeight;
-    if (i > text.length) clearInterval(interval);
-  }, 20);
-}
-
-function newChat() {
-  messages.innerHTML = "";
+  div.className = `msg ${type}`;
+  div.innerText = text;
+  document.getElementById("messages").appendChild(div);
 }
