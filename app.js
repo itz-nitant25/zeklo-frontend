@@ -77,3 +77,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (sendBtn) sendBtn.onclick = send;
 });
+// 🎤 Voice Input
+const micBtn = document.getElementById("mic");
+
+if (micBtn) {
+  const SpeechRecognition =
+    window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = "en-US";
+
+    micBtn.onclick = () => recognition.start();
+
+    recognition.onresult = (e) => {
+      document.getElementById("input").value =
+        e.results[0][0].transcript;
+    };
+  } else {
+    micBtn.style.display = "none";
+  }
+}
+
+// 🔊 Speak AI Reply
+function speak(text) {
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.rate = 1;
+  utter.pitch = 1;
+  utter.voice = speechSynthesis.getVoices()[0];
+  speechSynthesis.speak(utter);
+}
+
