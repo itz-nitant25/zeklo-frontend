@@ -107,4 +107,34 @@ function speak(text) {
   utter.voice = speechSynthesis.getVoices()[0];
   speechSynthesis.speak(utter);
 }
+const IMAGE_API = "https://zeklo.onrender.com/docs#/Zeklo%20Chat/image_api_image_post";
+
+async function generateImage() {
+  if (!localStorage.getItem("token")) {
+    alert("Login required to generate images");
+    return;
+  }
+
+  const prompt = prompt("Describe the image:");
+  if (!prompt) return;
+
+  const res = await fetch(IMAGE_API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token")
+    },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+
+  if (data.image_url) {
+    addMessage("🖼 Image generated:", "ai");
+    const img = document.createElement("img");
+    img.src = data.image_url;
+    img.className = "gen-img";
+    document.getElementById("messages").appendChild(img);
+  }
+}
 
