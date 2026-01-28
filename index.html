@@ -3,38 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>ZEKLO AI</title>
+
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<!-- AUTH -->
-<div id="auth" class="auth">
-  <h1 class="logo">ZEKLO</h1>
-  <p class="tagline">Think. Create. Evolve.</p>
-
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-
-  <button onclick="signup()">Sign up</button>
-  <button onclick="login()">Login</button>
-
-  <p id="authMsg"></p>
-</div>
-
-<!-- APP -->
-<div id="app" class="app hidden">
+<div class="app">
+  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h1 class="logo small">ZEKLO</h1>
+    <h1 class="logo">ZEKLO</h1>
+    <p class="tagline">Think. Create. Evolve.</p>
+
     <button class="new-chat" onclick="newChat()">＋ New Chat</button>
     <ul id="history"></ul>
   </aside>
 
+  <!-- CHAT -->
   <main class="chat">
-    <div id="messages"></div>
+    <div id="messages" class="messages">
+      <div class="msg ai">
+        👋 Hi, I’m <b>Zeklo</b>. Ask me anything.
+      </div>
+    </div>
 
     <div class="input-bar">
-      <input id="input" placeholder="Ask Zeklo…" />
+      <input id="input" placeholder="Ask Zeklo…" autocomplete="off" />
       <button onclick="send()">➤</button>
     </div>
   </main>
